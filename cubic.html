@@ -15,19 +15,35 @@
         </style>
     </head>
     <body>
-        <script src="three.min.js"></script>
+        <script src="js/three.min.js"></script>
         <script>
-            const WIDTH = window.innerWidth;
-            const HEIGHT = window.innerHeight;
-            const renderer = new THREE.WebGLRenderer({ antialias: true });
+            var WIDTH = window.innerWidth;
+            var HEIGHT = window.innerHeight;
+
+            var renderer = new THREE.WebGLRenderer({ antialias: true });
             renderer.setSize(WIDTH, HEIGHT);
             renderer.setClearColor(0xdddddd, 1);
             document.body.appendChild(renderer.domElement);
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(70, WIDTH / HEIGHT);
+
+            var scene = new THREE.Scene();
+
+            var camera = new THREE.PerspectiveCamera(70, WIDTH / HEIGHT);
             camera.position.z = 50;
             scene.add(camera);
 
+            var boxGeometry = new THREE.BoxGeometry(10, 10, 10);
+            var basicMaterial = new THREE.MeshBasicMaterial({color: 0x0095DD});
+            var cube = new THREE.Mesh(boxGeometry, basicMaterial);
+            cube.position.x = -25;
+            cube.rotation.set(0.4, 0.2, 0);
+            scene.add(cube);
+
+            function render() {
+                requestAnimationFrame(render);
+                cube.rotation.y += 0.01;
+                renderer.render(scene, camera);
+            }
+            render();
         </script>
     </body>
 </html>
